@@ -1,0 +1,22 @@
+CREATE TABLE clientes(
+       ID SERIAL PRIMARY KEY,
+       nome VARCHAR (50) NOT NULL,
+       data_cadastro DATE
+);
+
+
+DELIMITER//
+
+CREATE FUNCTION NovoCliente(p_data DATE)
+RETURN INT
+IS
+BEGIN
+ DECLARE total_clientes INT;
+
+SELECT COUNT(*) INTO total_clientes
+FROM clientes
+WHERE DATE(data_cadastro) = p_data;
+
+RETURN total_clientes;
+END NovoCliente;
+DELIMITER;
